@@ -2,7 +2,7 @@
 -- Phase 3 — Supabase PostgreSQL Schema for QR-ATT
 --
 -- This file replaces the local SQLite schema with a cloud schema.
--- It mirrors the original events and attendance tables but
+-- It mirrors the original `events` and `attendance` tables but
 -- integrates with Supabase Auth (auth.users) and adds Row Level
 -- Security so each user can only see their own data.
 --
@@ -67,8 +67,8 @@ create trigger on_auth_user_created
 
 -- ------------------------------------------------------------
 -- 2. EVENTS TABLE
--- Represents an attendance event (mirrors SQLite events).
--- event_code is the public identifier embedded in the QR code.
+-- Represents an attendance event (mirrors SQLite `events`).
+-- `event_code` is the public identifier embedded in the QR code.
 -- ------------------------------------------------------------
 create table if not exists public.events (
   id uuid primary key default gen_random_uuid(),
@@ -103,8 +103,8 @@ create policy "Users can update their own events"
 -- ------------------------------------------------------------
 -- 3. ATTENDANCE TABLE
 -- Records one student scanning one event.
--- student_id references the auth user, event_id references events.
--- Mirrors SQLite attendance table and its UNIQUE constraint.
+-- `student_id` references the auth user, `event_id` references events.
+-- Mirrors SQLite `attendance` table and its UNIQUE constraint.
 -- ------------------------------------------------------------
 create table if not exists public.attendance (
   id uuid primary key default gen_random_uuid(),
